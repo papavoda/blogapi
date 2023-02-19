@@ -1,1 +1,1 @@
-A project for learnin rest api
+A project for learning rest api
