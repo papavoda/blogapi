@@ -24,7 +24,7 @@ SECRET_KEY = 'django-insecure-f+43%hfby%d$$12$&#xhu%o#0w%803w=wtw7mzcyt1*o+qj=&=
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', ]
 
 # Application definition
 
@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     "allauth.socialaccount",  # new
     "dj_rest_auth",
     'dj_rest_auth.registration',
+    'drf_spectacular',
     # local
     'accounts.apps.AccountsConfig',
     'posts.apps.PostsConfig',
@@ -143,6 +144,7 @@ REST_FRAMEWORK = {  # new
         "rest_framework.authentication.SessionAuthentication",
         "rest_framework.authentication.TokenAuthentication",  # new
     ],
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
 }
 # REST_AUTH = {
 #     "USE_JWT": True,
@@ -157,3 +159,15 @@ CORS_ORIGIN_WHITELIST = (
 CSRF_TRUSTED_ORIGINS = [
     'http://localhost:3000',
 ]
+
+if not DEBUG:
+    REST_FRAMEWORK["DEFAULT_RENDERER_CLASSES"] = (
+            "rest_framework.renderers.JSONRenderer",
+        )
+
+SPECTACULAR_SETTINGS = {
+    "TITLE": "Blog API Project",
+    "DESCRIPTION": "A sample blog to learn about DRF",
+    "VERSION": "1.0.0",
+
+}
